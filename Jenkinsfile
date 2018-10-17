@@ -7,9 +7,6 @@ step([
     }
 
 pipeline {
-    agent {
-        label 'LS'
-    }
     stages {
         stage('Ask about approve') {
             steps {
