@@ -2,7 +2,7 @@ void setBuildStatus(String message, String state) {
 step([
             $class: "GitHubCommitStatusSetter",
             reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/q4x2/jf_test"],
-            contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "continuous-integration/jenkins/pr-merge"],
+            contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "continuous-integration/jenkins/pr-merge-auto"],
             statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
         ]);
     }
@@ -20,6 +20,7 @@ pipeline {
         stage ('Approve PR') {
             steps {
                         sh("echo true")
+                        setBuildStatus("Build succeeded", "SUCCESS");
             }
         }
         stage('Ask about failure') {
