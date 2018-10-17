@@ -2,6 +2,7 @@ void setBuildStatus(String message, String state) {
 step([
             $class: "GitHubCommitStatusSetter",
             reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/q4x2/jf_test"],
+            contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "continuous-integration/jenkins/pr-merge"],
             statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
         ]);
     }
@@ -34,7 +35,7 @@ post {
     }
     failure {
         sh("echo fail");
-        setBuildStatus("Build failed", "SUCCESS");
+        setBuildStatus("Build failed but success (=", "SUCCESS");
     }
   }
 }
